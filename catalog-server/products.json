@@ -1,37 +1,37 @@
 [
     {
-        "id": 1,
-        "name": "Product 1",
-        "price": 100,
-        "description": "Description of Product 1",
-        "categories": ["Category 1"]
+        "id": "1",
+        "name": "Smartphone X",
+        "price": 699.99,
+        "description": "Latest smartphone with advanced features",
+        "categories": ["Electronics", "Mobile"]
     },
     {
-        "id": 2,
-        "name": "Product 2",
-        "price": 200,
-        "description": "Description of Product 2",
-        "categories": ["Category 1"]
+        "id": "2",
+        "name": "Wireless Headphones",
+        "price": 149.99,
+        "description": "Noise cancelling wireless headphones",
+        "categories": ["Electronics"]
     },
     {
-        "id": 3,
-        "name": "Product 3",
-        "price": 300,
-        "description": "Description of Product 3",
-        "categories": ["Category 2"]
+        "id": "3",
+        "name": "Coffee Maker",
+        "price": 89.99,
+        "description": "Automatic coffee maker with timer",
+        "categories": ["Home Appliances"]
     },
     {
-        "id": 4,
-        "name": "Product 4",
-        "price": 400,
-        "description": "Description of Product 4",
-        "categories": ["Category 2"]
+        "id": "4",
+        "name": "Running Shoes",
+        "price": 129.99,
+        "description": "Comfortable running shoes for all terrains",
+        "categories": ["Sport"]
     },
     {
-        "id": 5,
-        "name": "Product 5",
-        "price": 500,
-        "description": "Description of Product 5",
-        "categories": ["Category 1", "Category 2"]
+        "id": "5",
+        "name": "Smart Watch",
+        "price": 199.99,
+        "description": "Track your fitness with this smart watch",
+        "categories": ["Electronics", "Sport"]
     }
-]
+  ]
