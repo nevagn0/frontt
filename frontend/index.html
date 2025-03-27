@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <form id="addProductForm">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="number" id="price" placeholder="Price" required>
+        <input type="text" id="description" placeholder="Description" required>
+        <input type="text" id="categories" placeholder="Categories (comma separated)" required>
+        <button type="submit">Add Product</button>
+    </form>
+
+    <h2>Product List</h2>
+    <ul id="productList"></ul>
+
+    <script>
+        const productList = document.getElementById('productList');
+        const addProductForm = document.getElementById('addProductForm');
+
+        function fetchProducts() {
+            fetch('http://localhost:8080/products')
+                .then(response => response.json())
+                .then(products => {
+                    productList.innerHTML = '';
+                    products.forEach(product => {
+                        const li = document.createElement('li');
+                        li.textContent = `${product.name} - $${product.price}`;
+                        productList.appendChild(li);
+                    });
+                });
+        }
+
+        addProductForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newProduct = {
+                name: document.getElementById('name').value,
+                price: parseFloat(document.getElementById('price').value),
+                description: document.getElementById('description').value,
+                categories: document.getElementById('categories').value.split(',').map(cat => cat.trim())
+            };
+
+            fetch('http://localhost:8080/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newProduct)
+            })
+            .then(response => response.json())
+            .then(() => {
+                fetchProducts();
+                addProductForm.reset();
+            });
+        });
+
+        fetchProducts();
+    </script>
+</body>
+</html>

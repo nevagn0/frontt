@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: Product Management API
+  description: API для управления каталогом товаров и админ-панелью
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Каталог товаров
+  - url: http://localhost:8080
+    description: Админ-панель
+
+paths:
+  /:
+    get:
+      summary: Главная страница каталога
+      description: Возвращает HTML-страницу с каталогом товаров
+      responses:
+        '200':
+          description: HTML-страница
+          content:
+            text/html:
+              schema:
+                type: string
+        '500':
+          description: Ошибка сервера
+
+  /products:
+    get:
+      summary: Получить все товары
+      description: Возвращает список всех товаров в формате JSON
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '500':
+          description: Ошибка сервера
+
+    post:
+      summary: Добавить новый товар
+      description: Создает новый товар в каталоге
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '201':
+          description: Товар создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '500':
+          description: Ошибка сервера
+
+  /products/{id}:
+    put:
+      summary: Обновить товар
+      description: Обновляет информацию о товаре по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '200':
+          description: Товар обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Товар не найден
+        '500':
+          description: Ошибка сервера
+
+    delete:
+      summary: Удалить товар
+      description: Удаляет товар по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Товар удален
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Товар удален"
+        '404':
+          description: Товар не найден
+        '500':
+          description: Ошибка сервера
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Product 1"
+        price:
+          type: number
+          example: 100
+        description:
+          type: string
+          example: "Description of Product 1"
+        categories:
+          type: array
+          items:
+            type: string
+          example: ["Category 1"]
+      required:
+        - id
+        - name
+        - price
+
+    ProductInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "New Product"
+        price:
+          type: number
+          example: 150
+        description:
+          type: string
+          example: "New product description"
+        categories:
+          type: array
+          items:
+            type: string
+          example: ["Category 1", "Category 2"]
+      required:
+        - name
+        - price
